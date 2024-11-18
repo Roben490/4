@@ -6,7 +6,7 @@ const Game: React.FC = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [number, setNumber] = useState(2);
   
-  const intervalRef = useRef<number | null>(null); // שמירת ה-ID של interval
+  const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -25,7 +25,7 @@ const Game: React.FC = () => {
     if (!intervalRef.current) { 
       intervalRef.current = window.setInterval(() => {
         setNumber((prev) => prev + 0.1);
-      }, 100);
+      }, 1000);
     }
   };
 
@@ -49,11 +49,16 @@ const Game: React.FC = () => {
       </div>
       <button
         onClick={changeNumber}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="change-button"
+        className="change-button-a"
       >
         Change Number
+      </button>
+      <button
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        className="change-button-b"
+      >
+        Increase Cube
       </button>
       <HealthBar />
     </>
