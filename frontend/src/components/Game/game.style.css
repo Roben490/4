@@ -48,3 +48,45 @@
     background-color: rgb(92, 122, 0);
   }
   
+  .conveyor-belt {
+    position: relative;
+    width: 400px;
+    height: 100px;
+    background-color: #f0f0f0;
+    margin: 20px auto;
+  }
+  
+  .belt {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background-color: #999;
+    overflow: hidden;
+  }
+  
+  .cube-on-belt {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .main-cube {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #e74c3c;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    z-index: 2;
+  }
+  

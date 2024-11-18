@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './game.style.css';
 import HealthBar from './HealthBar/HealthBar';
+import ConveyorBelt from './ConveyorBelt/ConveyorBelt';
 
 const Game: React.FC = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -61,6 +62,7 @@ const Game: React.FC = () => {
         Increase Cube
       </button>
       <HealthBar />
+      <ConveyorBelt />
     </>
   );
 };
