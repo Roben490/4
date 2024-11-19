@@ -1,11 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import './game.style.css';
 import HealthBar from './HealthBar/HealthBar';
 import ConveyorBelt from './ConveyorBelt/ConveyorBelt';
+import { CubeValueContext } from '../../context/cubeValue';
 
 const Game: React.FC = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [number, setNumber] = useState(2);
+  const { value, setValue } = useContext(CubeValueContext) ?? {
+    value: 0,
+    setValue: (): void => {}
+  };
   
   const intervalRef = useRef<number | null>(null);
 
@@ -13,29 +17,27 @@ const Game: React.FC = () => {
     const handleMouseMove = (event: MouseEvent) => {
       setPosition({ x: event.clientX, y: event.clientY });
     };
-
+    
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const changeNumber = () => {
-    setNumber((prev) => prev + 0.1);
+    setValue((prev) => prev! + 0.1);
   };
 
   const handleMouseEnter = () => {
     if (!intervalRef.current) { 
       intervalRef.current = window.setInterval(() => {
-        setNumber((prev) => prev + 0.1);
+        setValue((prev) => prev! + 0.1);
       }, 1000);
-    }
-  };
+    }};
 
   const handleMouseLeave = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
-    }
-  };
+    }};
 
   return (
     <>
@@ -46,7 +48,7 @@ const Game: React.FC = () => {
           top: `${position.y}px`,
         }}
       >
-        {number.toFixed(1)}
+        {value.toFixed(1)}
       </div>
       <button
         onClick={changeNumber}

@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../game.style.css';
+import { CubeValueContext } from '../../../context/cubeValue';
 
 const ConveyorBelt: React.FC = () => {
   const [cube, setCube] = useState({ left: 0, value: 2 });
   const [isHovered, setIsHovered] = useState(false);
+  const { value, setValue } = useContext(CubeValueContext) ?? {
+    value: 0,
+    setValue: (): void => {}
+  };
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -13,13 +19,13 @@ const ConveyorBelt: React.FC = () => {
         }
         return { ...prevCube, left: prevCube.left + 1 }; // תזוזה לקדימה
       });
-    }, 10);
-
+    }, 50);
     return () => clearInterval(interval); // לנקות את ה-interval כשחיים משתנים
   }, []);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    setValue(value + cube.value)
     setCube({ left: 0, value: 0 }); // הקוביה נעלמת אם אנחנו מעליה
   };
 
