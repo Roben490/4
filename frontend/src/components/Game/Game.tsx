@@ -22,7 +22,7 @@ const Game: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const changeNumber = () => {
+  const changeCubeValue = () => {
     setValue((prev) => prev! + 0.1);
   };
 
@@ -51,7 +51,7 @@ const Game: React.FC = () => {
         {value.toFixed(1)}
       </div>
       <button
-        onClick={changeNumber}
+        onClick={changeCubeValue}
         className="change-button-a"
       >
         Change Number
