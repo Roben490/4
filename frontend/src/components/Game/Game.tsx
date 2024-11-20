@@ -1,12 +1,21 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import './game.style.css';
 import HealthBar from './HealthBar/HealthBar';
 import ConveyorBelt from './ConveyorBelt/ConveyorBelt';
 import { CubeValueContext } from '../../context/cubeValueProvider';
 import FallingCubes from './FallingCubes/FallingCubes';
+import { CubePositionContext } from '../../context/cubePositionProvider';
 
 const Game: React.FC = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  // const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const { x, y, setPositionX, setPositionY } = useContext(CubePositionContext) ?? {
+    x: 0,
+    y: 0,
+    setPositionX: (): void => {},
+    setPositionY: (): void => {}
+  }
+
   const { value, setValue } = useContext(CubeValueContext) ?? {
     value: 0,
     setValue: (): void => {}
@@ -16,7 +25,8 @@ const Game: React.FC = () => {
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      setPosition({ x: event.clientX, y: event.clientY });
+      setPositionX(event.clientX);
+      setPositionY(event.clientY)
     };
     
     window.addEventListener('mousemove', handleMouseMove);
@@ -45,8 +55,8 @@ const Game: React.FC = () => {
       <div
         className="follower"
         style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
+          left: `${x}px`,
+          top: `${y}px`,
         }}
       >
         {value.toFixed(1)}
