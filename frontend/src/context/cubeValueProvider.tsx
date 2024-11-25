@@ -4,7 +4,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-interface CubeValueProps {
+export interface CubeValueProps {
   value: number;
   setValue: React.Dispatch<React.SetStateAction<number>>;
 }
