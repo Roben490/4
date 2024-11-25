@@ -2,22 +2,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import './fallingCubes.style.css';
 import { getRandomNumberFromArray } from '../../../utils/getRandomNumber';
 import { CubeValueContext } from '../../../context/cubeValueProvider';
-import { CubePositionContext } from '../../../context/cubePositionProvider';
+import { v4 } from 'uuid'
 
 interface fallingCubeInterface {
+    id: string;
     top: number; 
     left: number; 
-    value: number
+    value: number;
 }
 
 const FallingCubes: React.FC = () => {
   const [cubes, setCubes] = useState<fallingCubeInterface[]>([]);
-  const { x, y} = useContext(CubePositionContext) ?? {
-    x: 0,
-    y: 0,
-    setPositionX: (): void => {},
-    setPositionY: (): void => {}
-  }
+
   const { value, setValue } = useContext(CubeValueContext) ?? {
     value: 0,
     setValue: (): void => {},
@@ -26,6 +22,7 @@ const FallingCubes: React.FC = () => {
   useEffect(() => {
     const generateCube = () => {
       const newCube = {
+        id: v4(),
         top: 0,
         left: Math.random() * (window.innerWidth - 50), // קוביה תמיד תתחיל בתוך המסך
         value: getRandomNumberFromArray([1, 2, 3, 4, 5]),
@@ -34,14 +31,6 @@ const FallingCubes: React.FC = () => {
     };
     setInterval(generateCube, 2000); // כל 2 שניות קוביה חדשה
   }, []);
-
-  cubes.forEach((cube, i) => {
-    if (cube.top +80 >= y && cube.left + 80 >= x) {
-      setValue(value -cube.value)
-      cubes.splice(i,1)
-    }
-  })
-
 
 
   useEffect(() => {
@@ -57,7 +46,14 @@ const FallingCubes: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  
+  const handleMouseEnter = (cubeId: string) => {
+    const currentCube = cubes.find((c) => c.id === cubeId)
+    const currentCubeIndex = cubes.findIndex((c) => c.id === cubeId)
+    cubes.splice(currentCubeIndex,1)
+    if (currentCube) {
+      setValue(value - currentCube.value);
+    }
+  };
 
   return (
     <div className="falling-cubes-container">
@@ -66,6 +62,7 @@ const FallingCubes: React.FC = () => {
           key={index}
           className="falling-cube"
           style={{ top: `${cube.top}px`, left: `${cube.left}px` }}
+          onMouseEnter={() => handleMouseEnter(cube.id)}
         >
           {cube.value}
         </div>
