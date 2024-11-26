@@ -33,14 +33,14 @@ export const updatePlayerScore = async (req: Request, res: Response): Promise<vo
 };
 
 export const createNewPlayer = async (req: Request, res: Response): Promise<void> => {
-  const playerFromBody: IPlayer = req.body;
+  const playerFromBody: IPlayer = req.body; 
   console.log(playerFromBody);
-  
+   
   try {
     const newPlayer = await playerService.createNewPlayer(playerFromBody);
+
     res.status(201).json(newPlayer);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ msg: 'Server error' });
+    res.status(500).json(error);
   }
 };

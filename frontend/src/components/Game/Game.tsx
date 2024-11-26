@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
-import './game.style.css';
+import './Game.style.css';
 import ConveyorBelt from './ConveyorBelt/ConveyorBelt';
 import { CubeValueContext } from '../../context/cubeValueProvider';
 import FallingCubes from './FallingCubes/FallingCubes';
 import { CubePositionContext } from '../../context/cubePositionProvider';
 import Buttons from './Buttons/Buttons';
-import ShootingMiniCubes from './ShootingMiniCubes/ShootingMiniCubes';
+// import ShootingMiniCubes from './ShootingMiniCubes/ShootingMiniCubes';
 
 const Game: React.FC = () => {
   const { x, y, setPositionX, setPositionY } = useContext(CubePositionContext) ?? {
@@ -41,7 +41,7 @@ const Game: React.FC = () => {
       >
         {value.toFixed(1)}
       </div>
-      <ShootingMiniCubes/>
+      {/* <ShootingMiniCubes/> */}
       <Buttons/>
       <FallingCubes/>
       <ConveyorBelt />

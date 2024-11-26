@@ -26,9 +26,10 @@ export const updatePlayerScore = async (playerId: string, score: number) => {
 
 export const createNewPlayer = async (newPlayer: IPlayer): Promise<IPlayer> => {
   try {
-      const nPlayer = await new Player({
+      const nPlayer = new Player({
         _id: new mongoose.Types.ObjectId(),
         username: newPlayer.username,
+        password: newPlayer.password,
         email: newPlayer.email
         });
     await nPlayer.save();

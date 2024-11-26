@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import './fallingCubes.style.css';
+import './FallingCubes.style.css';
 import { getRandomNumberFromArray } from '../../../utils/getRandomNumber';
 import { CubeValueContext } from '../../../context/cubeValueProvider';
 import { v4 } from 'uuid'
@@ -41,7 +41,6 @@ const FallingCubes: React.FC = () => {
           .filter((cube) => cube.top < window.innerHeight) // קוביות שיצאו מהמסך מוסרות
       );
     };
-
     const interval = setInterval(moveCubes, 50); // תנועה חלקה
     return () => clearInterval(interval);
   }, []);
