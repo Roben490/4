@@ -1,6 +1,7 @@
 import { CookieOptions, Request, Response } from "express";
 import { handleBadRequest, handleError } from "../utils/errorHandlar";
 import { loginService, logoutService } from "../services/auth.service";
+import { log } from "console";
 
 
 export const login = async (req: Request, res: Response) => {
@@ -14,11 +15,10 @@ export const login = async (req: Request, res: Response) => {
   }
 }
 
-
-export const logout = async (res: Response) => {
+export const logout = async (req: Request, res: Response) => {
   try {
-    logoutService(res);
-    res.status(200)
+    await logoutService(req, res);
+    res.status(200).json({ message: "Logged out successfully" });
   } catch (error: any) {
     console.error(error.message);
   }

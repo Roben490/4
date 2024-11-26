@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { playerContext } from '../../context/playerContext';
+import Profile from '../Player/Profile';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const Home = () => {
   return (
     <div style={{ textAlign: 'center', marginTop: '20%' }}>
       <h1>Welcome to the Game</h1>
+      {player ? <Profile/> : <></>}
       {player ? 
       <button 
         onClick={() => navigate('/game')}>

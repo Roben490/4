@@ -1,5 +1,5 @@
 import { Player } from "../models/Player.model";
-import { CookieOptions, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import { comparePassword } from "../utils/comparePassword";
 import { generateAuthToken } from "../utils/jwt";
 import { handleBadRequest } from "../utils/errorHandlar";
@@ -48,11 +48,14 @@ export const loginService = async (player: PlayerDTO, res: Response): Promise<ob
   }
 };
 
-export const logoutService = (res: Response) => {
+export const logoutService = async (req: Request, res: Response) => {
     try {
-        res.clearCookie("token", cookieConfig);
-        console.log('User logged out and cookie cleared');
-    } catch (error: any) {
-        handleBadRequest("Logout Error", error);
-    }
+        res.clearCookie("token", {
+          httpOnly: true,
+          secure: true,
+          sameSite: "strict",
+        });
+      } catch (error) {
+        console.log(error);
+      }
 };

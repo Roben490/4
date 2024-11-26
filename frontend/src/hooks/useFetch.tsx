@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Player } from "../interface/Player";
+import { userDataDTO } from "../components/Home/Login/Login";
 
 
 export default function useFatch(url: string) {
-  const [data, setData] = useState<Player | null>(null);
+  const [data, setData] = useState<object>({});
   const [error, setError] = useState<string | null>(null);
 
   const getFatch = async () => {
@@ -30,13 +31,12 @@ export default function useFatch(url: string) {
         credentials: "include", // חשוב בשביל קבלת הקוקיז
         body: JSON.stringify(body),
       });
-      console.log(response);
       if (!response.ok) {
         setError(response.statusText)
       }
-      const data: Player = await response.json();
-      if (data) {
-        setData(data);
+      const data: userDataDTO = await response.json();
+      if (data.player) {
+        setData(data.player);
       }
     } catch (error) {
       setError("cannot Add player" + error)
