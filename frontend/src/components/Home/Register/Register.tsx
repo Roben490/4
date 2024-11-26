@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import { playerContext } from "../../../context/playerContext";
 
-const LoginComp = () => {
+const Register = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -70,4 +70,4 @@ const LoginComp = () => {
   );
 };
 
-export default LoginComp;
+export default Register;

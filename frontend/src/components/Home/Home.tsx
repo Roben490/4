@@ -1,18 +1,22 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { playerContext } from '../../context/playerContext';
 
 const Home = () => {
   const navigate = useNavigate();
+  const { player } = useContext(playerContext) ?? {}
 
-  const handlePlayClick = () => {
-    navigate('/game');
-  };
 
   return (
     <div style={{ textAlign: 'center', marginTop: '20%' }}>
       <h1>Welcome to the Game</h1>
-      <button onClick={handlePlayClick} style={{ fontSize: '24px', padding: '10px 20px' }}>
-        PLAY
-      </button>
+      {player ? 
+      <button 
+        onClick={() => navigate('/game')}>
+        PLAY</button> 
+        : 
+        <button onClick={() => navigate('/register')} 
+        >Login</button>} 
     </div>
   );
 };
