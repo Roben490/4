@@ -7,5 +7,6 @@ export interface IPlayer extends Document {
     email: string;
     score?: number;
     lives?: number;
+    isAdmin: boolean;
     createdAt?: Date;
   }

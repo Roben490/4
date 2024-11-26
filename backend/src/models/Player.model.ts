@@ -9,6 +9,7 @@ const playerSchema = new Schema<IPlayer>({
   email: { type: String, required: true, unique: true },
   score: { type: Number, default: 0 },
   lives: { type: Number, default: 3 },
+  isAdmin: { type: Boolean, default: false},
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { IPlayer } from '../interfaces/IPlayer';
 import { Player } from '../models/Player.model';
+import { generateUserPassword } from '../utils/comparePassword';
 
 export const getPlayerById = async (id: string): Promise<IPlayer | null> => {
   try {
@@ -29,10 +30,11 @@ export const createNewPlayer = async (newPlayer: IPlayer): Promise<IPlayer> => {
       const nPlayer = new Player({
         _id: new mongoose.Types.ObjectId(),
         username: newPlayer.username,
-        password: newPlayer.password,
-        email: newPlayer.email
+        password: generateUserPassword(newPlayer.password),
+        email: newPlayer.email,
+        isAdmin: false
         });
-    await nPlayer.save();
+    await nPlayer.save(); 
     return nPlayer;
   } catch (error) {
     throw error;

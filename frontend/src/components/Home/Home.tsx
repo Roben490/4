@@ -6,7 +6,6 @@ const Home = () => {
   const navigate = useNavigate();
   const { player } = useContext(playerContext) ?? {}
 
-
   return (
     <div style={{ textAlign: 'center', marginTop: '20%' }}>
       <h1>Welcome to the Game</h1>
@@ -15,7 +14,7 @@ const Home = () => {
         onClick={() => navigate('/game')}>
         PLAY</button> 
         : 
-        <button onClick={() => navigate('/register')} 
+        <button onClick={() => navigate('/login')} 
         >Login</button>} 
     </div>
   );
