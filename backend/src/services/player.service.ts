@@ -32,7 +32,8 @@ export const createNewPlayer = async (newPlayer: IPlayer): Promise<IPlayer> => {
         username: newPlayer.username,
         password: generateUserPassword(newPlayer.password),
         email: newPlayer.email,
-        isAdmin: false
+        winsImages: newPlayer.winsImages,
+        isAdmin: newPlayer.isAdmin, 
         });
     await nPlayer.save(); 
     return nPlayer;

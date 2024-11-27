@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { playerContext } from '../../context/playerContext';
-import Profile from '../Player/Profile';
+import Profile from '../Player/MiniProfile';
 import LogOut from './LogOut/LogOut';
 
 const Home = () => {
