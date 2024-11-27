@@ -17,12 +17,11 @@ const Register = () => {
     event.preventDefault();
     try {
       await postFetch({ username, password, email });
-      console.log(data);
       if (data) {
         setPlayer(data);
       }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Register failed:", error);
     }
   };
 
@@ -60,9 +59,9 @@ const Register = () => {
               onChange={() => setShowPassword(!showPassword)}
             />
             <div>
-              <button type="submit">Login</button>
+              <button type="submit">Register</button>
             </div>
-            <Link to="/addNewUser">Sign Up</Link>
+            <Link to="/login">Login</Link>
           </form>
         </div>
       </div>

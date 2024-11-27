@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { Player } from "../interface/Player";
-import { userDataDTO } from "../components/Home/Login/Login";
 
 
 export default function useFatch(url: string) {
-  const [data, setData] = useState<object>({});
+  const [data, setData] = useState();
   const [error, setError] = useState<string | null>(null);
 
-  const getFatch = async () => {
+  const getFetch = async () => {
     try {
       const res = await fetch(url, {
         credentials: "include",
@@ -34,9 +32,9 @@ export default function useFatch(url: string) {
       if (!response.ok) {
         setError(response.statusText)
       }
-      const data: userDataDTO = await response.json();
-      if (data.player) {
-        setData(data.player);
+      const data = await response.json();
+      if (data) {
+        setData(data);
       }
     } catch (error) {
       setError("cannot Add player" + error)
@@ -84,5 +82,5 @@ export default function useFatch(url: string) {
       console.error("cant to do it", error);
     }
   };
-  return { getFatch, data, error, postFetch, deleteFetch, editFetch};
+  return { getFetch, data, error, postFetch, deleteFetch, editFetch};
 }

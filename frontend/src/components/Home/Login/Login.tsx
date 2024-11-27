@@ -2,19 +2,15 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import { playerContext } from "../../../context/playerContext";
-import { Player } from "../../../interface/Player";
 
-export interface userDataDTO {
-  player: Player,
-  token: string
-}
 
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { postFetch, data } = useFetch("http://localhost:3000/api/login");
-  const { player ,setPlayer } = useContext(playerContext) ?? {
+  const { setPlayer } = useContext(playerContext) ?? {
+    player: null,
     setPlayer: (): void => {}
   };
   const navigate = useNavigate();
@@ -23,15 +19,11 @@ const Login = () => {
     event.preventDefault();
     try {
       await postFetch({ username, password });
+      // const currentPlayer: Player = data!;
       if (data) {
-        setPlayer({data});
-      }
-      console.log(player);
-      
-      if (player?._id) {
+        setPlayer(data);
         navigate('/')
       }
-      
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -63,11 +55,9 @@ const Login = () => {
               checked={showPassword}
               onChange={() => setShowPassword(!showPassword)}
             />
-            <div>
-              <button type="submit">Login</button>
-            </div>
-            <Link to="/addNewUser">Sign Up</Link>
+            <button type="submit">Login</button>
           </form>
+            <Link to="/register">Sign Up</Link>
         </div>
       </div>
     </>

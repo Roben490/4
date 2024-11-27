@@ -3,6 +3,7 @@ import { CookieOptions, Request, Response } from "express";
 import { comparePassword } from "../utils/comparePassword";
 import { generateAuthToken } from "../utils/jwt";
 import { handleBadRequest } from "../utils/errorHandlar";
+import { IPlayer } from "../interfaces/IPlayer";
 
 interface PlayerDTO {
   username: string;
@@ -15,7 +16,7 @@ const cookieConfig: CookieOptions = {
   sameSite: "strict", // הגנה מפני CSRF
 };
 
-export const loginService = async (player: PlayerDTO, res: Response): Promise<object> => {
+export const loginService = async (player: PlayerDTO, res: Response): Promise<IPlayer> => {
   try {
     if (!player?.username || !player?.password) {
       throw new Error("Missing required fields");
@@ -41,7 +42,7 @@ export const loginService = async (player: PlayerDTO, res: Response): Promise<ob
     }
 
     res.cookie("token", token, cookieConfig);
-    return { player, token };
+    return foundPlayer;
   } catch (error: any) {
     error.status = 404;
     return handleBadRequest("MongoDB", error);
