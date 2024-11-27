@@ -45,6 +45,7 @@ const Game: React.FC = () => {
       <Buttons/>
       <FallingCubes/>
       <ConveyorBelt />
+
     </>
   );
 };

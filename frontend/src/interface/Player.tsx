@@ -5,5 +5,6 @@ export interface Player {
     email: string;
     score?: number;
     lives?: number;
+    isAdmin?: boolean;
     createdAt?: Date;
   }

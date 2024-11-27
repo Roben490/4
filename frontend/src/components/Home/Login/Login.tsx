@@ -19,7 +19,6 @@ const Login = () => {
     event.preventDefault();
     try {
       await postFetch({ username, password });
-      // const currentPlayer: Player = data!;
       if (data) {
         setPlayer(data);
         navigate('/')
