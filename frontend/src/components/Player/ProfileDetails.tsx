@@ -13,7 +13,7 @@ export default function ProfileDetails() {
         setIndexImage(0);
       }
       if (indexImage === -1) {
-        setIndexImage(player.winsImages.length + 1);
+        setIndexImage(player.winsImages.length - 1);
       }
       return (
         <div>
@@ -36,10 +36,12 @@ export default function ProfileDetails() {
           <div
             style={{ padding: "3px", background: "green", maxWidth: "500px" }}
           >
+            {indexImage === -1 ? <></> 
+            : 
             <img
-              src={player.winsImages ? player.winsImages[indexImage] : ""}
-              alt=""
-            />
+              src={player.winsImages ? player.winsImages[indexImage] : ""}alt=""/>
+            }
+            
           </div>
           <button onClick={() => setIndexImage(indexImage + 1)}>Next</button>
           <button onClick={() => setIndexImage(indexImage - 1)}>Prev</button>
