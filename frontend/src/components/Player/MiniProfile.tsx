@@ -16,8 +16,9 @@ export default function MiniProfile() {
     <>
     <div>
     {isMobile ?
-     <div style={{borderRadius:'20px', background: 'black'}}>
-        <p onClick={() => navigate('/profile')}>{player?.username}</p>
+    <div style={{borderRadius:'20px', background: 'black'}}>
+        <img onClick={() => navigate('/profile')} src={player?.img} alt="playerImg" style={{cursor: 'pointer', maxHeight: '100px', maxWidth: '100px'}} />
+        <p>{player?.username}</p>
         <p>{player?.email}</p>
     </div> 
     : 
@@ -29,6 +30,7 @@ export default function MiniProfile() {
         <p>{player?.lives}</p>
     </div>
     }
+    <button onClick={() => navigate('/profileDetails')}>Open Details Page</button>
     </div>
 
     </>
