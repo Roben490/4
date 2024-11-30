@@ -6,14 +6,19 @@ export interface Props {
 }
 
 export interface PlayerProps {
-  player: Player | null;
-  setPlayer: React.Dispatch<React.SetStateAction<Player | null>>;
+  player: Player;
+  setPlayer: React.Dispatch<React.SetStateAction<Player>>;
 }
 
-export const playerContext = createContext<PlayerProps| null>(null);
+export const playerContext = createContext<PlayerProps | undefined>(undefined)
 
 const UserProvider = ({ children }: Props) => {
-  const [player, setPlayer] = useState<Player | null>(null);
+  const [player, setPlayer] = useState<Player>({
+    username: '',
+    password: '',
+    email: '',
+  });
+
   return (
     <div>
       <playerContext.Provider value={{player, setPlayer}}>

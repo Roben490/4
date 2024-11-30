@@ -1,27 +1,30 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useFetch from "../../../hooks/useFetch";
 import { playerContext } from "../../../context/playerContext";
-import './Login.style.css'
+import { loginUser } from "../../../services/logService";
+import "./Login.style.css";
 
-const Login = () => {
+const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { postFetch, data } = useFetch("http://localhost:3000/api/login");
+
   const { setPlayer } = useContext(playerContext) ?? {
-    player: null,
     setPlayer: (): void => {},
   };
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      await postFetch({ username, password });
-      if (data) {
-        setPlayer(data);
+      const playerData = await loginUser(username, password);
+      if (playerData) {
+        setPlayer(playerData);
         navigate("/");
+      } else {
+        console.error("Invalid username or password");
+        navigate("/login");
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -29,35 +32,40 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div className="form-container">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username</label>
+    <div className="form-container">
+      <form onSubmit={handleSubmit}>
+        <div>
           <input
             type="text"
             value={username}
+            required
             placeholder="username"
             onChange={(e) => setUsername(e.target.value)}
           />
-          <label htmlFor="password">Password</label>
+        </div>
+
+        <div>
           <input
             type={showPassword ? "text" : "password"}
+            required
             value={password}
             placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
           />
+        </div>
+
+        <div>
           <label htmlFor="showPassword">Show Password</label>
           <input
             type="checkbox"
-            id=""
             checked={showPassword}
             onChange={() => setShowPassword(!showPassword)}
           />
-          <button type="submit">Login</button>
-        </form>
-        <Link to="/register">Sign Up</Link>
-      </div>
-    </>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <Link to="/register">Sign Up</Link>
+    </div>
   );
 };
 

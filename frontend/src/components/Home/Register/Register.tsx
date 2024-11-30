@@ -1,24 +1,26 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import useFetch from "../../../hooks/useFetch";
 import { playerContext } from "../../../context/playerContext";
+import { registerUser } from "../../../services/logService";
 
-const Register = () => {
+const Register: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { postFetch, data } = useFetch("http://localhost:3000/api/newPlayer");
+
   const { setPlayer } = useContext(playerContext) ?? {
-    setPlayer: (): void => {}
+    setPlayer: (): void => {},
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      await postFetch({ username, password, email });
-      if (data) {
-        setPlayer(data);
+      const playerData = await registerUser(username, password, email);
+      if (playerData) {
+        setPlayer(playerData);
+      } else {
+        console.error("Registration failed");
       }
     } catch (error) {
       console.error("Register failed:", error);
@@ -26,46 +28,39 @@ const Register = () => {
   };
 
   return (
-    <>
-      <div>
-        <div className="form-container">
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              value={username}
-              placeholder="username"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              value={password}
-              placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              value={email}
-              placeholder="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label htmlFor="showPassword">הצג סיסמה</label>
-            <input
-              type="checkbox"
-              id=""
-              checked={showPassword}
-              onChange={() => setShowPassword(!showPassword)}
-            />
-            <div>
-              <button type="submit">Register</button>
-            </div>
-            <Link to="/login">Login</Link>
-          </form>
-        </div>
-      </div>
-    </>
+    <div className="form-container">
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username</label>
+        <input
+          type="text"
+          value={username}
+          placeholder="username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type={showPassword ? "text" : "password"}
+          value={password}
+          placeholder="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          value={email}
+          placeholder="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <label htmlFor="showPassword">Show Password</label>
+        <input
+          type="checkbox"
+          checked={showPassword}
+          onChange={() => setShowPassword(!showPassword)}
+        />
+        <button type="submit">Register</button>
+        <Link to="/login">Login</Link>
+      </form>
+    </div>
   );
 };
 

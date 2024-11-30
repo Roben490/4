@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import * as playerService from '../services/player.service';
 import { IPlayer } from '../interfaces/IPlayer';
+import jwt from 'jsonwebtoken';
+interface TokenPayload {
+  id: string;
+  isAdmin: boolean;
+}
 
 export const getPlayerStats = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -18,9 +23,19 @@ export const getPlayerStats = async (req: Request, res: Response): Promise<void>
 
 export const updatePlayerScore = async (req: Request, res: Response): Promise<void> => {
   const { score } = req.body;
-  const { id } = req.params;
+  if (!req.headers.cookie) {
+    res.status(404).json({ msg: 'Player not found' });
+    return;
+  }
   try {
-    const updatedPlayer = await playerService.updatePlayerScore(id, score);
+    const token = req.cookies['token']
+    const SECRET_KEY = process.env.JWT_SECRET as string;
+    const player = jwt.verify(token, SECRET_KEY,  {
+      algorithms: ['HS256']
+    }) as TokenPayload;
+    console.log(player);
+    console.log(token);
+    const updatedPlayer = await playerService.updatePlayerScore(player.id, score);
     if (!updatedPlayer) {
         res.status(404).json({ msg: 'Player not found' });
         return;

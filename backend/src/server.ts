@@ -6,6 +6,7 @@ import { connectToMongo } from './DB/DB';
 import { router } from './routers/player.routes';
 import { setupSockets } from './sockets/socket';
 import cors from "cors"
+import cookieParser from 'cookie-parser';
 
 
 dotenv.config();
@@ -24,6 +25,7 @@ const PORT = process.env.PORT || 3000;
 
 
 app.use(express.json());
+app.use(cookieParser())
 app.use('/api', router);
 
 setupSockets(server)

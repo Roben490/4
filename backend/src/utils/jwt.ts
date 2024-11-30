@@ -1,16 +1,12 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
-// Define interface for token payload
 interface TokenPayload {
   id: string;
   isAdmin: boolean;
 }
 
-// Ensure secret key exists
 const SECRET_KEY = process.env.JWT_SECRET || 'fallback_secret_key';
-
-// Generate token
 const generateAuthToken = (user: { _id: any; isAdmin: boolean }): string => {
   return jwt.sign(
     { id: user._id, isAdmin: user.isAdmin }, 
@@ -21,62 +17,50 @@ const generateAuthToken = (user: { _id: any; isAdmin: boolean }): string => {
   );
 };
 
-// Verify user
 const verifyUser = (req: Request, res: Response, next: NextFunction) => {
-  // Check if cookies exist
   if (!req.headers.cookie) {
     return res.status(401).json({ 
       status: 'error', 
       message: 'Access denied. No cookies found.' 
     });
   }
-
-  // Get token from cookies
-  const token = req.cookies['token'];
-
-  // Check if token exists
-  if (!token) {
+  console.log(3);
+  const tokenApi = req.cookies['token'];
+  if (!tokenApi) {
     return res.status(401).json({ 
       status: 'error', 
       message: 'Access denied. No token provided.' 
     });
   }
-
   try {
-    // Try to verify the token
-    const decoded = jwt.verify(token, SECRET_KEY, {
+    const decoded = jwt.verify(tokenApi, SECRET_KEY, {
       algorithms: ['HS256']
     }) as TokenPayload;
+    console.log(decoded);
 
-    // Add decoded user to request
-    (req as any).user = decoded;
-
-    // Continue to next middleware
+    (req as any).score = decoded;
     next();
-
   } catch (error) {
     console.error('Token verification error:', error);
-
     if (error instanceof jwt.TokenExpiredError) {
       return res.status(401).json({ 
         status: 'error', 
         message: 'Token expired. Please log in again.' 
       });
     }
-
     if (error instanceof jwt.JsonWebTokenError) {
       return res.status(400).json({ 
         status: 'error', 
         message: 'Invalid or malformed token.' 
       });
     }
-
     return res.status(500).json({ 
       status: 'error', 
       message: 'Internal error during authentication.' 
     });
   }
 };
+
 
 // Admin check middleware
 const verifyAdmin = (req: Request, res: Response, next: NextFunction) => {
