@@ -10,6 +10,8 @@ interface ProtectedRoutesProp {
 
 const ProtectedRoutes: React.FC<ProtectedRoutesProp> = ({ children }) => {
   const { player } = useContext(playerContext) ?? {};
+  console.log(player);
+  
   return (
     <>
     { player ? children : <Navigate to="/login" /> }

@@ -7,6 +7,8 @@ import LogOut from './LogOut/LogOut';
 const Home = () => {
   const navigate = useNavigate();
   const { player } = useContext(playerContext) ?? {}
+  console.log(player);
+
 
   return (
     <div style={{ textAlign: 'center', marginTop: '20%' }}>
