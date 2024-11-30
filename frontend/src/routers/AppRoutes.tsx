@@ -16,7 +16,6 @@ export default function AppRoutes() {
       <Route path="/game" element={<ProtectedRoutes><Game /></ProtectedRoutes>} />
       <Route path="/profile" element={<MiniProfile/>} />
       <Route path="/profileDetails" element={<ProfileDetails/>} />
-
     </Routes>
   )
 }

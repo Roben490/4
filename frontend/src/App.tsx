@@ -1,9 +1,10 @@
 import "./App.css";
+import Main from "./Layout/Main/Main";
 import AppRoutes from "./routers/AppRoutes";
 
 const App = () => {
   return (
-      <AppRoutes/>
+      <Main children={<AppRoutes/>}/>
   );
 };
 

@@ -12,7 +12,7 @@ export interface PlayerProps {
 
 export const playerContext = createContext<PlayerProps | undefined>(undefined)
 
-const UserProvider = ({ children }: Props) => {
+const PlayerProvider = ({ children }: Props) => {
   const [player, setPlayer] = useState<Player>({
     username: '',
     password: '',
@@ -28,4 +28,4 @@ const UserProvider = ({ children }: Props) => {
   );
 };
 
-export default UserProvider
+export default PlayerProvider
