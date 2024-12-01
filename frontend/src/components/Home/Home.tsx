@@ -1,27 +1,27 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { playerContext } from '../../context/playerContext';
-import Profile from '../Player/MiniProfile';
+import { UserContext } from '../../context/UserContext';
+import Profile from '../User/MiniProfile';
 import LogOut from './LogOut/LogOut';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { player } = useContext(playerContext) ?? {}
-  console.log(player);
+  const { User } = useContext(UserContext) ?? {}
+  console.log(User);
 
 
   return (
     <div style={{ textAlign: 'center', marginTop: '20%' }}>
       <h1>Welcome to the Game</h1>
-      {player ? <Profile/> : <></>}
-      {player ? 
+      {User ? <Profile/> : <></>}
+      {User ? 
       <button 
         onClick={() => navigate('/game')}>
         PLAY</button> 
         : 
         <button onClick={() => navigate('/login')} 
         >Login</button>} 
-      {player ? <LogOut/> : <></>}
+      {User ? <LogOut/> : <></>}
     </div>
   );
 };

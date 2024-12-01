@@ -1,12 +1,13 @@
-import { Player } from "../models/Player.model";
+
 import { CookieOptions, Request, Response } from "express";
 import { comparePassword } from "../utils/comparePassword";
 import { generateAuthToken } from "../utils/jwt";
 import { handleBadRequest } from "../utils/errorHandlar";
-import { IPlayer } from "../interfaces/IPlayer";
+import { IUser } from "../interfaces/IUser";
+import { Users } from "../models/User.model";
 
-interface PlayerDTO {
-  username: string;
+interface UserDTO {
+  name: string;
   password: string;
 }
 
@@ -16,33 +17,38 @@ const cookieConfig: CookieOptions = {
   sameSite: "strict", // הגנה מפני CSRF
 };
 
-export const loginService = async (player: PlayerDTO, res: Response): Promise<IPlayer> => {
+interface dataReturnedFromLogin {
+  foundUser: IUser,
+  token: string
+}
+
+export const loginService = async (user: UserDTO, res: Response): Promise<dataReturnedFromLogin> => {
   try {
-    if (!player?.username || !player?.password) {
+    if (!user?.name || !user?.password) {
       throw new Error("Missing required fields");
     }
 
-    const foundPlayer = await Player.findOne({ username: player.username });
-    if (!foundPlayer) {
+    const foundUser = await Users.findOne({ name: user.name });
+    if (!foundUser) {
       throw new Error("Could not find this user in the database");
     }
 
     const isPasswordCorrect = await comparePassword(
-      player.password,
-      foundPlayer.password
+      user.password,
+      foundUser.password
     );
     if (!isPasswordCorrect) {
       throw new Error("Incorrect password or Email");
     }
 
-    const { _id, isAdmin } = foundPlayer;
-    let token = generateAuthToken({ _id, isAdmin });
+    const { _id } = foundUser;
+    let token = generateAuthToken({ _id });
     if (!cookieConfig) {
       throw new Error("Cookie configuration is missing");
     }
 
     res.cookie("token", token, cookieConfig);
-    return foundPlayer;
+    return { foundUser, token };
   } catch (error: any) {
     error.status = 404;
     return handleBadRequest("MongoDB", error);

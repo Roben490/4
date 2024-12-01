@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { playerContext } from "../../context/playerContext";
+import { UserContext } from "../../context/UserContext";
 
 
 interface AdminProtectedRoutesProp {
@@ -9,10 +9,10 @@ interface AdminProtectedRoutesProp {
 }
 
 const AdminProtectedRoutes: React.FC<AdminProtectedRoutesProp> = ({ children }) => {
-  const { player } = useContext(playerContext) ?? {};
+  const { User } = useContext(UserContext) ?? {};
   return (
     <>
-    { player?.isAdmin ? children : <Navigate to="/register" /> }
+    { User?.isAdmin ? children : <Navigate to="/register" /> }
     </>
 );
 };

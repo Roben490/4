@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { playerContext } from "../../../context/playerContext";
+import { UserContext } from "../../../context/UserContext";
 
 export default function LogOut() {
-    const { player, setPlayer } = useContext(playerContext) ?? {
-        player: {}, 
-        setPlayer: (): void => {}
+    const { User, setUser } = useContext(UserContext) ?? {
+        User: {}, 
+        setUser: (): void => {}
     }
   return (
     <div>
-        {player ? <button onClick={() => setPlayer(null)}>Log Out</button> : <></> }
+        {User ? <button onClick={() => setUser(null)}>Log Out</button> : <></> }
     </div>
   );
 }

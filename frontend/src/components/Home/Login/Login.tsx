@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { playerContext } from "../../../context/playerContext";
+import { UserContext } from "../../../context/UserContext";
 import { loginUser } from "../../../services/logService";
 import "./Login.style.css";
 
@@ -9,8 +9,8 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { setPlayer } = useContext(playerContext) ?? {
-    setPlayer: (): void => {},
+  const { setUser } = useContext(UserContext) ?? {
+    setUser: (): void => {},
   };
 
   const navigate = useNavigate();
@@ -18,9 +18,9 @@ const Login: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const playerData = await loginUser(username, password);
-      if (playerData) {
-        setPlayer(playerData);
+      const UserData = await loginUser(username, password);
+      if (UserData) {
+        setUser(UserData);
         navigate("/");
       } else {
         console.error("Invalid username or password");

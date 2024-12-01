@@ -1,11 +1,11 @@
 import axios from "axios";
-import { Player } from "../interface/Player";
+import { User } from "../interface/User";
 
 const API_URL = "http://localhost:3000/api/";
 
-export const loginUser = async (username: string, password: string): Promise<Player | null> => {
+export const loginUser = async (username: string, password: string): Promise<User | null> => {
   try {
-    const response = await axios.post<Player>(`${API_URL}/login`, { username, password });
+    const response = await axios.post<User>(`${API_URL}/login`, { username, password });
     return response.data;
   } catch (error) {
     console.error("Login error:", error);
@@ -13,9 +13,9 @@ export const loginUser = async (username: string, password: string): Promise<Pla
   }
 };
 
-export const registerUser = async (username: string, password: string, email: string): Promise<Player | null> => {
+export const registerUser = async (username: string, password: string, email: string): Promise<User | null> => {
     try {
-      const response = await axios.post<Player>(`${API_URL}/register`, { username, password, email });
+      const response = await axios.post<User>(`${API_URL}/register`, { username, password, email });
       return response.data;
     } catch (error) {
       console.error("Register error:", error);

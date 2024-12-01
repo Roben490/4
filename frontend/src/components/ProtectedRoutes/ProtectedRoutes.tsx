@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { playerContext } from "../../context/playerContext";
+import { UserContext } from "../../context/userContext";
 
 
 interface ProtectedRoutesProp {
@@ -9,12 +9,12 @@ interface ProtectedRoutesProp {
 }
 
 const ProtectedRoutes: React.FC<ProtectedRoutesProp> = ({ children }) => {
-  const { player } = useContext(playerContext) ?? {};
-  console.log(player);
+  const { User } = useContext(UserContext) ?? {};
+  console.log(User);
   
   return (
     <>
-    { player ? children : <Navigate to="/login" /> }
+    { User ? children : <Navigate to="/login" /> }
     </>
 );
 };

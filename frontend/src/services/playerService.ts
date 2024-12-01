@@ -1,11 +1,11 @@
 import axios from "axios";
-import { Player } from "../interface/Player";
+import { User } from "../interface/User";
 
 const API_URL = "http://localhost:3000/api";
 
-export const updatePlayerScore = async (score: number): Promise<Player | null> => {
+export const updateUserScore = async (score: number): Promise<User | null> => {
   try {
-    const response = await axios.post<Player>(
+    const response = await axios.post<User>(
       `${API_URL}/updateScore`,
       { score },
       { withCredentials: true }

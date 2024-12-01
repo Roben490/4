@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { playerContext } from "../../../context/playerContext";
+import { UserContext } from "../../../context/UserContext";
 import { registerUser } from "../../../services/logService";
 
 const Register: React.FC = () => {
@@ -9,16 +9,16 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { setPlayer } = useContext(playerContext) ?? {
-    setPlayer: (): void => {},
+  const { setUser } = useContext(UserContext) ?? {
+    setUser: (): void => {},
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const playerData = await registerUser(username, password, email);
-      if (playerData) {
-        setPlayer(playerData);
+      const UserData = await registerUser(username, password, email);
+      if (UserData) {
+        setUser(UserData);
       } else {
         console.error("Registration failed");
       }

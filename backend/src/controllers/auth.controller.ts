@@ -1,14 +1,14 @@
 import { CookieOptions, Request, Response } from "express";
 import { handleBadRequest, handleError } from "../utils/errorHandlar";
 import { loginService, logoutService } from "../services/auth.service";
-import { log } from "console";
 
 
 export const login = async (req: Request, res: Response) => {
   try {
     const user = req.body;
-    const token = await loginService(user, res);
-    res.json(token);
+    const {foundUser ,token} = await loginService(user, res);
+    const objectForRes = {foundUser, token}
+    res.json(objectForRes);
   } catch (error: any) {    
     handleError(res, error.status, error.message);
   }
