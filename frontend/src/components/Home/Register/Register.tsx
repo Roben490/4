@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../../context/UserContext";
 import { registerUser } from "../../../services/logService";
+import { UserContext } from "../../../context/userContext";
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState<string>("");

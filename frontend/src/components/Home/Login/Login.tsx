@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../../context/UserContext";
 import { loginUser } from "../../../services/logService";
 import "./Login.style.css";
+import { UserContext } from "../../../context/userContext";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
     try {
       const UserData = await loginUser(username, password);
       if (UserData) {
-        setUser(UserData);
+        setUser(UserData.foundUser);
         navigate("/");
       } else {
         console.error("Invalid username or password");

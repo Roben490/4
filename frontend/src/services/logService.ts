@@ -1,11 +1,16 @@
 import axios from "axios";
 import { User } from "../interface/User";
 
-const API_URL = "http://localhost:3000/api/";
+const API_URL = "http://localhost:4444/api/";
 
-export const loginUser = async (username: string, password: string): Promise<User | null> => {
+interface loginDTO {
+  foundUser: User,
+  token: string
+}
+
+export const loginUser = async (name: string, password: string): Promise<loginDTO | null> => {
   try {
-    const response = await axios.post<User>(`${API_URL}/login`, { username, password });
+    const response = await axios.post<loginDTO>(`${API_URL}/login`, { name, password });
     return response.data;
   } catch (error) {
     console.error("Login error:", error);
@@ -13,9 +18,9 @@ export const loginUser = async (username: string, password: string): Promise<Use
   }
 };
 
-export const registerUser = async (username: string, password: string, email: string): Promise<User | null> => {
+export const registerUser = async (name: string, password: string, email: string): Promise<User | null> => {
     try {
-      const response = await axios.post<User>(`${API_URL}/register`, { username, password, email });
+      const response = await axios.post<User>(`${API_URL}/register`, { name, password, email });
       return response.data;
     } catch (error) {
       console.error("Register error:", error);

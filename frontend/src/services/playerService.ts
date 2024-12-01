@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "../interface/User";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "http://localhost:4444/api";
 
 export const updateUserScore = async (score: number): Promise<User | null> => {
   try {
