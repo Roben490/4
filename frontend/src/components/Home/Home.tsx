@@ -7,9 +7,7 @@ import ControlArea from './ControlArea/ControlArea';
 const Home = () => {
   const navigate = useNavigate();
   const { User } = useContext(UserContext) ?? {}
-  if (User) {
-    console.log(User.email);
-    
+  if (User) {    
     return (
       <div style={{ textAlign: 'center', marginTop: '20%' }}>
       <h1>Welcome {User?.name}</h1>

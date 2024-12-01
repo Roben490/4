@@ -24,7 +24,6 @@ const verifyUser = (req: Request, res: Response, next: NextFunction) => {
       message: 'Access denied. No cookies found.' 
     });
   }
-  console.log(3);
   const tokenApi = req.cookies['token'];
   if (!tokenApi) {
     return res.status(401).json({ 
@@ -36,8 +35,6 @@ const verifyUser = (req: Request, res: Response, next: NextFunction) => {
     const decoded = jwt.verify(tokenApi, SECRET_KEY, {
       algorithms: ['HS256']
     }) as TokenPayload;
-    console.log(decoded);
-
     (req as any).score = decoded;
     next();
   } catch (error) {

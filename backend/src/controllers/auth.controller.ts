@@ -8,7 +8,7 @@ export const login = async (req: Request, res: Response) => {
     const user = req.body;
     const {foundUser ,token} = await loginService(user, res);
     const objectForRes = {foundUser, token}
-    res.json(objectForRes);
+    res.json(objectForRes)
   } catch (error: any) {    
     handleError(res, error.status, error.message);
   }

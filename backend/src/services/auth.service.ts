@@ -14,8 +14,8 @@ interface UserDTO {
 const cookieConfig: CookieOptions = {
   httpOnly: true, // הגנה מפני XSS - הקוקי לא נגיש דרך JavaScript בצד הלקוח
   secure: true, // שליחת הקוקי רק בחיבור HTTPS
-  sameSite: "strict", // הגנה מפני CSRF
-};
+  sameSite: "none", // הגנה מפני CSRF
+}
 
 interface dataReturnedFromLogin {
   foundUser: IUser,
@@ -47,7 +47,7 @@ export const loginService = async (user: UserDTO, res: Response): Promise<dataRe
       throw new Error("Cookie configuration is missing");
     }
 
-    res.cookie("token", token, cookieConfig);
+    
     return { foundUser, token };
   } catch (error: any) {
     error.status = 404;

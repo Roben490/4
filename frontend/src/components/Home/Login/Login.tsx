@@ -3,6 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../../services/logService";
 import "./Login.style.css";
 import { UserContext } from "../../../context/userContext";
+import { User } from "../../../interface/User";
+
+
+interface loginDTO {
+  foundUser: User,
+  token: string
+}
+
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -19,7 +27,7 @@ const Login: React.FC = () => {
     event.preventDefault();
     try {
       const UserData = await loginUser(username, password);
-      if (UserData) {
+      if (UserData.token) {
         setUser(UserData.foundUser);
         navigate("/");
       } else {
