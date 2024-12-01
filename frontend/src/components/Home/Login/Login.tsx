@@ -5,12 +5,10 @@ import "./Login.style.css";
 import { UserContext } from "../../../context/userContext";
 import { User } from "../../../interface/User";
 
-
 interface loginDTO {
   foundUser: User,
   token: string
 }
-
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -26,9 +24,12 @@ const Login: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const UserData = await loginUser(username, password);
-      if (UserData.token) {
+      const UserData : loginDTO | null = await loginUser(username, password);
+      if (UserData) {
         setUser(UserData.foundUser);
+        console.log(UserData.token);
+        document.cookie = `token=${UserData.token}`
+        
         navigate("/");
       } else {
         console.error("Invalid username or password");
