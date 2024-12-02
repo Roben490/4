@@ -1,5 +1,5 @@
 
-export interface Routes {
+export interface Lines {
     _id?: string
     lineNumber: string;
     name: string;

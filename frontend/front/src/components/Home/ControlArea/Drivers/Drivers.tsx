@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "../../../../interface/User";
 import axios from "axios";
+import { MdDelete, MdEdit } from "react-icons/md";
 import "./Drivers.style.css";
 
 export default function Drivers() {
@@ -19,17 +20,20 @@ export default function Drivers() {
     <div>
       {drivers.map((driver) => (
         <div className="card">
-          <button>
-            <img
-              src="src\assets\Screenshot_2024-12-01_143852-removebg-preview.png"
-              alt="driver"
-            />
-            <h3>
-              <b>{driver.name}</b>
-            </h3>
+          <img src="src\assets\driver.png" alt="driver" />
+          <div className="card-a">
+            <b>{driver.name}</b>
             <p>{driver.email}</p>
             <p>{driver.role}</p>
-          </button>
+          </div>
+          <div className="card-b">
+            <button>
+              <MdEdit size="20px" />
+            </button>
+            <button>
+              <MdDelete color="red" size="20px" />
+            </button>
+          </div>
         </div>
       ))}
     </div>

@@ -1,35 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { User } from "../../../../interface/User";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import "./Drivers.style.css";
+import { Lines } from "../../../../interface/Lines";
+import { MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import './Routes.style.css'
+
 
 export default function RoutersBus() {
-  const [routers, setRouters] = useState<User[]>([]);
+  const [routers, setRouters] = useState<Lines[]>([]);
   const getAllDrivers = async () => {
-    const response = await axios.get<User[]>(
-      `http://localhost:4444/api/getAllUsers`,
+    const response = await axios.get<Lines[]>(
+      `http://localhost:4444/api/getAllRoutes`,
       { withCredentials: true }
     );
-    setDrivers(response.data);
+    setRouters(response.data);
   };
   useEffect(() => {
     getAllDrivers();
-  }, [drivers]);
+  }, [routers]);
   return (
     <div>
-      {drivers.map((driver) => (
+      {routers.map((router) => (
         <div className="card">
-          <button>
-            <img
-              src="src\assets\Screenshot_2024-12-01_143852-removebg-preview.png"
-              alt="driver"
-            />
-            <h3>
-              <b>{driver.name}</b>
-            </h3>
-            <p>{driver.email}</p>
-            <p>{driver.role}</p>
-          </button>
+          <img src="src\assets\stop.png" alt="stop" />
+          <div className="card-a">
+            <b>{router.name}</b>
+            <p>{router.lineNumber}</p>
+          </div>
+          <div className="card-b">
+            <button>
+              <MdEdit size="20px" />
+            </button>
+            <button>
+              <MdDelete color="red" size="20px" />
+            </button>
+          </div>
         </div>
       ))}
     </div>
