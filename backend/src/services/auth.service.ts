@@ -46,8 +46,7 @@ export const loginService = async (user: UserDTO, res: Response): Promise<dataRe
     if (!cookieConfig) {
       throw new Error("Cookie configuration is missing");
     }
-
-    
+    res.cookie("token", token, cookieConfig);
     return { foundUser, token };
   } catch (error: any) {
     error.status = 404;
