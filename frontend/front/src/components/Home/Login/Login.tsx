@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from "react";
 import { userContext } from "../../../context/userContext";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { LoginDTO } from "../../../interface/LoginDTO";
 import { loginUser } from "../../../services/logService";
 
@@ -8,7 +8,7 @@ const Login: FC = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const { setUser } = useContext(userContext) ?? {
+  const { setUser, user } = useContext(userContext) ?? {
     setUser: (): void => {},
   };
 
@@ -30,33 +30,37 @@ const Login: FC = () => {
     }
   };
   return (
-    <div className="login-form">
-      <form onSubmit={handleSubmit}>
+    <>
+    {!user ? 
+      <div className="login-form">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              type="text"
+              value={name}
+              required
+              placeholder="name"
+              onChange={(e) => setName(e.target.value)}
+              />
+          </div>
+          <div>
+            <input
+              type="password"
+              value={password}
+              required
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+              />
+          </div>
+          <button type="submit">Login</button>
+        </form>
         <div>
-          <input
-            type="text"
-            value={name}
-            required
-            placeholder="name"
-            onChange={(e) => setName(e.target.value)}
-          />
+          <p>already have account?</p>
+          <button onClick={() => navigate("register")}>Register</button>
         </div>
-        <div>
-          <input
-            type="password"
-            value={password}
-            required
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <div>
-        <p>already have account?</p>
-        <button onClick={() => navigate("register")}>Register</button>
       </div>
-    </div>
+ : <Navigate to='/'/>}
+    </>
   );
 };
 

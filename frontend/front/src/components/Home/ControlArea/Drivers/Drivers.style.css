@@ -1,0 +1,18 @@
+*{
+    margin: 5px;
+}
+
+.card {
+    display: flex;
+    width: 35%;
+    min-width: 35%;
+    flex-direction: row-reverse;
+}
+
+.card img {
+    max-width: 40px;
+}
+
+.card button {
+    height: 100%;
+}
