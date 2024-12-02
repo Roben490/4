@@ -3,6 +3,7 @@ import { IUser } from '../interfaces/IUser';
 import { generateUserPassword } from '../utils/comparePassword';
 import { Users } from '../models/User.model';
 import { userRole } from '../enums/userRole';
+import { log } from 'console';
 
 export const getUserByIdService = async (id: string): Promise<IUser | null> => {
   try {
@@ -20,20 +21,30 @@ export const getAllUsersService = async (): Promise<IUser[] | null> => {
   }
 };
 
-export const updateUserService = async (id: string ,user: IUser) => {
+interface UserUpdateDTO {
+  name: string,
+  email: string,
+  role: string
+}
+
+export const updateUserService = async (id: string ,user: UserUpdateDTO) => {
   try {
-    const updatedUser = await Users.findById(id);
+    
+    const updatedUser = await Users.findByIdAndUpdate(id,{
+      name: user.name,
+      email: user.email,
+      role: user.role
+    });
+    
     if (!updatedUser) {
       throw new Error('User not found');
     }
-    updatedUser.name = user.name,
-    updatedUser.email = user.email,
-    updatedUser.password = updatedUser.password,
-    updatedUser.role = user.role,
+    console.log(updatedUser);
     await updatedUser.save();
+    
     return updatedUser;
   } catch (error) {
-    throw new Error('Error updating User score');
+    throw new Error('Error updating User');
   }
 };
 

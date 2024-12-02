@@ -12,9 +12,8 @@ const Home: FC = () => {
     if (user) {
         return (
             <div>
-                <h1>Welcome {user.name}</h1>
-                {user.role === "Admin" ? <ControlArea/> : <button onClick={() => navigate('/Tasks')}>Show My Task</button> }
                 {user ? <LogOut/> : <></> }
+                {user.role === "Admin" ? <ControlArea/> : <button onClick={() => navigate('/Tasks')}>Show My Task</button> }
             </div>
         )
     }
