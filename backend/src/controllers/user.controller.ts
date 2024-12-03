@@ -40,11 +40,9 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
   const updatedUserFromBody = req.body;
-  
-  const { id } = req.params;
   try {
   if (updatedUserFromBody) {
-    const updatedUser = await UserService.updateUserService(id, updatedUserFromBody);
+    const updatedUser = await UserService.updateUserService(updatedUserFromBody);
     if (!updatedUser) {
       res.status(404).json({ msg: 'User not found' });
       return;

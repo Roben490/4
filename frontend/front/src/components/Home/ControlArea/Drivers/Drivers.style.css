@@ -2,6 +2,11 @@
     margin: 2px;
 }
 
+.add-user {
+    background: cornflowerblue;
+    margin-right: 350px;
+}
+
 .card {
     display: flex;
     flex-direction: row-reverse;

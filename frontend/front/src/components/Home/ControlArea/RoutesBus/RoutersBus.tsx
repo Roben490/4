@@ -17,7 +17,7 @@ export default function RoutersBus() {
   };
   useEffect(() => {
     getAllDrivers();
-  }, [routers]);
+  }, []);
   return (
     <div>
       {routers.map((router) => (

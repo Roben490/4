@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Bus } from "../../../../interface/Bus";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit, MdOutlineAddRoad } from "react-icons/md";
 import './Buses.style.css'
+import { useNavigate } from "react-router-dom";
+
 
 export default function Drivers() {
   const [buses, setBuses] = useState<Bus[]>([]);
+  useEffect(() => {
+    getAllBuses();
+  }, []);
+
+  const navigate = useNavigate();
   const getAllBuses = async () => {
     const response = await axios.get<Bus[]>(
       `http://localhost:4444/api/getAllBuses`,
@@ -13,13 +20,10 @@ export default function Drivers() {
     );
     setBuses(response.data);
   };
-  useEffect(() => {
-    getAllBuses();
-  }, [buses]);
 
-  
   return (
     <div>
+      <button className="add-bus" onClick={() => navigate('/addBus')}><MdOutlineAddRoad size='25px'/></button>
       {buses.map((bus) => (
         <div className="card">
           <img src="src\assets\bus.png" alt="bus" />

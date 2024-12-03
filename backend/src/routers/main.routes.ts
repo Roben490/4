@@ -10,7 +10,7 @@ const router = Router();
 
 router.get('/getUser/:id',verifyUser as NextFunction, UserController.getUserById);
 router.get('/getAllUsers',verifyUser as NextFunction, UserController.getAllUsers);
-router.put('/updateUser/:id',verifyUser as NextFunction, UserController.updateUser);
+router.put('/updateUser',verifyUser as NextFunction, UserController.updateUser);
 router.delete('/deleteUser/:id',verifyUser as NextFunction, UserController.deleteUser);
 
 router.post('/addNewBus',verifyUser as NextFunction, BusController.createNewBus);

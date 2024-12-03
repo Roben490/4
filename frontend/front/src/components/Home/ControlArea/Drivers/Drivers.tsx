@@ -4,6 +4,8 @@ import axios from "axios";
 import { MdDelete, MdEdit } from "react-icons/md";
 import "./Drivers.style.css";
 import { useNavigate } from "react-router-dom";
+import { LuUserPlus } from "react-icons/lu";
+
 
 export default function Drivers() {
   const [drivers, setDrivers] = useState<User[]>([]);
@@ -17,9 +19,10 @@ export default function Drivers() {
   };
   useEffect(() => {
     getAllDrivers();
-  }, [drivers]);
+  }, []);
   return (
     <div>
+      <button className="add-user" onClick={() => navigate(`/addDriver`)}><LuUserPlus size='25px'/></button>
       {drivers.map((driver) => (
         <div className="card">
           <img src="src\assets\driver.png" alt="driver" />
