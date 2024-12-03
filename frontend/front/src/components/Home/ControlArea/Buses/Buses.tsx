@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Bus } from "../../../../interface/Bus";
-import { MdDelete, MdEdit, MdOutlineAddRoad } from "react-icons/md";
+import { MdDelete, MdEdit, MdDirectionsBus } from "react-icons/md";
 import './Buses.style.css'
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +23,7 @@ export default function Drivers() {
 
   return (
     <div>
-      <button className="add-bus" onClick={() => navigate('/addBus')}><MdOutlineAddRoad size='25px'/></button>
+      <button className="add-bus" onClick={() => navigate('/addBus')}><MdDirectionsBus size='25px'/></button>
       {buses.map((bus) => (
         <div className="card">
           <img src="src\assets\bus.png" alt="bus" />

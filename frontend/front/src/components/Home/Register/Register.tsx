@@ -30,7 +30,6 @@ const Register: FC = () => {
         console.error(error);
     }
   };
-
   return (
     <div className="register-form">
       <form onSubmit={handleSubmit}>

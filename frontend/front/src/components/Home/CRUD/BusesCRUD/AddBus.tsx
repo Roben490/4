@@ -7,6 +7,8 @@ import { busStatus } from "../../../../enums/busStatus";
 import { User } from "../../../../interface/User";
 import { Lines } from "../../../../interface/Lines";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const AddBus: FC = () => {
   const [licensePlate, setLicensePlate] = useState("");
@@ -52,9 +54,12 @@ const AddBus: FC = () => {
         driverId,
         routeId,
     };
-    console.log(newBus);
       const response = await addBus(newBus);
       if (response) {
+        toast.success("Update Driver Successfully", {
+            position: "bottom-center",
+          });
+        <ToastContainer autoClose={2000} />;
         navigate("/");
       } else {
         //לזכור שצריך כאן לעבוד על סניק בר אולי...

@@ -5,6 +5,7 @@ import { Home } from '../components/Home/Home'
 import EditDriver from '../components/Home/CRUD/DriverCRUD/EditDriver'
 import { AddDriver } from '../components/Home/CRUD/DriverCRUD/AddDriver'
 import { AddBus } from '../components/Home/CRUD/BusesCRUD/AddBus'
+import { AddLines } from '../components/Home/CRUD/LinesCRUD/AddLines'
 
 export default function AppRoutes() {
   return (
@@ -15,7 +16,7 @@ export default function AppRoutes() {
         <Route path='/editDriver/:id' element={<EditDriver/>}/>
         <Route path='/addDriver' element={<AddDriver/>}/>
         <Route path='/addBus' element={<AddBus/>}/>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/addLines' element={<AddLines/>}/>
 
     </Routes>
   )

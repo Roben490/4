@@ -54,10 +54,13 @@ export default function EditDriver() {
           required
           onChange={(e) => setName(e.target.value)}
         />
-        <select value={role}>
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value as userRole)}
+        >
           Select Role
-          {/* <option value={userRole.Admin.toString()}>{userRole.Admin.toString()}</option>
-        <option value={userRole.Driver}>{userRole.Driver}</option> */}
+          <option value={userRole.Admin}>{userRole.Admin}</option>
+          <option value={userRole.Driver}>{userRole.Driver}</option>
         </select>
 
         <input
