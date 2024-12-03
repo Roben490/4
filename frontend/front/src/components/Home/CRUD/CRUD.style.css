@@ -1,0 +1,21 @@
+
+*{
+    margin: 5px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.register-form input {
+    padding: 8px;
+    font-size: 17px;
+}
+
+.register-form select {
+    padding: 10px;
+}
+
+

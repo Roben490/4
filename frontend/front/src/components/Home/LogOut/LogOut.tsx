@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { userContext } from '../../../context/userContext'
-import './LogOut.style.css'
+import '../Home.style.css'
 
 export default function LogOut() {
     const { user, setUser} = useContext(userContext) ?? {

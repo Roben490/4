@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../../services/logService";
 import { IoAddCircle } from "react-icons/io5";
 import { TiArrowBack } from "react-icons/ti";
+import '../CRUD.style.css'
+
 
 
 const AddDriver: FC = () => {
@@ -54,7 +56,7 @@ const AddDriver: FC = () => {
         />
         <button type="submit"><IoAddCircle size='25px'/></button>
       </form>
-      <button onClick={() => navigate('/')}>Back <TiArrowBack color="red" /></button>
+      <button style={{background: '#FBC3BC'}} onClick={() => navigate("/")}><TiArrowBack color="red" size='25px' /></button>
     </div>
   );
 };

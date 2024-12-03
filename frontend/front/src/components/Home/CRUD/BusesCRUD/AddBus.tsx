@@ -8,6 +8,8 @@ import { User } from "../../../../interface/User";
 import { Lines } from "../../../../interface/Lines";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import '../CRUD.style.css'
+
 
 
 const AddBus: FC = () => {
@@ -121,9 +123,7 @@ const AddBus: FC = () => {
           <IoAddCircle size="25px" />
         </button>
       </form>
-      <button onClick={() => navigate("/")}>
-        Back <TiArrowBack color="red" />
-      </button>
+      <button style={{background: '#FBC3BC'}} onClick={() => navigate("/")}><TiArrowBack color="red" size='25px' /></button>
     </div>
   );
 };

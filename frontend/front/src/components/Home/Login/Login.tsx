@@ -56,7 +56,7 @@ const Login: FC = () => {
         </form>
         <div>
           <p>already have account?</p>
-          <button onClick={() => navigate("register")}>Register</button>
+          <button onClick={() => navigate("/register")}>Register</button>
         </div>
       </div>
  : <Navigate to='/'/>}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { User } from "../../../../interface/User";
 import axios from "axios";
 import { MdDelete, MdEdit } from "react-icons/md";
-import "./Drivers.style.css";
+import '../ControlArea.style.css'
 import { useNavigate } from "react-router-dom";
 import { LuUserPlus } from "react-icons/lu";
 
@@ -22,7 +22,7 @@ export default function Drivers() {
   }, []);
   return (
     <div>
-      <button className="add-user" onClick={() => navigate(`/addDriver`)}><LuUserPlus size='25px'/></button>
+      <button className="add-d" onClick={() => navigate(`/addDriver`)}><LuUserPlus size='25px'/></button>
       {drivers.map((driver) => (
         <div className="card">
           <img src="src\assets\driver.png" alt="driver" />

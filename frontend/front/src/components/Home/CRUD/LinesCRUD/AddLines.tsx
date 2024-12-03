@@ -5,7 +5,7 @@ import { IoAddCircle } from "react-icons/io5";
 import { TiArrowBack } from "react-icons/ti";
 import { Schedule } from "../../../../interface/Lines";
 import { ToastContainer, toast } from "react-toastify";
-
+import '../CRUD.style.css'
 
 const AddLines: FC = () => {
   const [lineNumber, setLineNumber] = useState("");
@@ -95,8 +95,7 @@ const AddLines: FC = () => {
         <button onClick={handleSubmit}>
           <IoAddCircle size="25px" />
         </button>
-      <button onClick={() => navigate("/")}>
-        Back <TiArrowBack color="red" />
+      <button style={{background: '#FBC3BC'}} onClick={() => navigate("/")}><TiArrowBack color="red" size='25px' />
       </button>
     </div>
   );

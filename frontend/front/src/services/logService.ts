@@ -37,7 +37,9 @@ export const addBus = async (bus: Partial<Bus>) : Promise<Bus | null> => {
 
 export const addLines = async (Line: Partial<Lines>) : Promise<Lines | null> => {
     try {
-        const response = await axios.post<Lines>(`http://localhost:4444/api/addNewBus`, Line, { withCredentials: true});        
+        console.log(Line);
+        
+        const response = await axios.post<Lines>(`http://localhost:4444/api/addNewRoute`, Line, { withCredentials: true});        
         return response.data;
     } catch (error) {
         console.error(error);

@@ -5,6 +5,8 @@ import { TiArrowBack } from "react-icons/ti";
 import { MdSaveAs } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import { userRole } from "../../../../enums/userRole";
+import '../CRUD.style.css'
+
 
 export default function EditDriver() {
   const [name, setName] = useState("");
