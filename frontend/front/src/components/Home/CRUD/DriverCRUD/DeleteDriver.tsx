@@ -1,32 +1,36 @@
-import { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import PopUp from "../../../PopUps/PopUp";
 import { MdCancel, MdDelete } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import { deleteDriver } from "../../../../services/dataService";
 
-export default function DeleteDriver(state: boolean) {
-  const [isVisiblePopUp, setIsVisiblePopUp] = useState(state);
+interface StatusProp {
+    isDelete: boolean,
+    setIsDelete: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-  const handleDelete = () => {
-    console.log('היוזר נמחק!');
-    setIsVisiblePopUp(false);
+export default function DeleteDriver({isDelete, setIsDelete}: StatusProp) {
+  const { id } = useParams();
+
+  const handleDelete = async () => {
+    await deleteDriver(id!)
+    setIsDelete(false);
   };
 
-  // פונקציה לסגירת הפופאפ אם המשתמש בחר "ביטול"
   const handleCancel = () => {
-    setIsVisiblePopUp(false);
+    setIsDelete(false);
   };
 
 
   return (
     <div>
-      {isVisiblePopUp ? (
+      {isDelete && (
         <PopUp
           onConfirm={handleDelete}
           onCancel={handleCancel}
           textInCancel={<MdCancel color="red" size="20px" />}
           textInConfirm={<MdDelete color="red" size="20px" />}
         />
-      ) : (
-        <></>
       )}
     </div>
   );

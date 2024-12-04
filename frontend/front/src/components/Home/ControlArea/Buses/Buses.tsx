@@ -1,30 +1,49 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Bus } from "../../../../interface/Bus";
 import { MdDelete, MdEdit, MdDirectionsBus } from "react-icons/md";
 import '../ControlArea.style.css'
 import { useNavigate } from "react-router-dom";
+import { GetLimitBuses } from "../../../../interface/GetLimitBuses";
+import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
 
 
 export default function Drivers() {
-  const [buses, setBuses] = useState<Bus[]>([]);
+  const [data, setData] = useState<GetLimitBuses>();
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(2)
+
   useEffect(() => {
-    getAllBuses();
-  }, []);
+    getLimitBuses();
+  }, [page, limit]);
 
   const navigate = useNavigate();
-  const getAllBuses = async () => {
-    const response = await axios.get<Bus[]>(
-      `http://localhost:4444/api/getAllBuses`,
+  const getLimitBuses = async () => {
+    const response = await axios.get<GetLimitBuses>(
+      `http://localhost:4444/api/getLimitBuses/?page=${page}&limit=${limit}`,
       { withCredentials: true }
     );
-    setBuses(response.data);
+    setData(response.data);
   };
+
+  const handleNext = () => {
+    console.log(data);
+    if (data?.currentPage !== data?.totalPages) {      
+      setPage((prev) => prev + 1)
+    }
+  }
+
+  const handlePrev = () => {
+    console.log(data);
+    if (data?.currentPage !== 1) {
+      setPage((prev) => prev - 1)
+    }
+  }
 
   return (
     <div>
       <button className="add-b" onClick={() => navigate('/addBus')}><MdDirectionsBus size='25px'/></button>
-      {buses.map((bus) => (
+      <button disabled={data?.buses && data?.currentPage === 1} onClick={handlePrev}><FaAngleDoubleUp size='20px' /></button>
+      {data?.buses.map((bus) => (
         <div className="card">
           <img src="src\assets\bus.png" alt="bus" />
           <div className="card-a">
@@ -41,6 +60,7 @@ export default function Drivers() {
           </div>
         </div>
       ))}
+      <button disabled={data?.buses && data?.currentPage === data.totalPages} onClick={handleNext}><FaAngleDoubleDown size='20px' /></button>
     </div>
   );
 }

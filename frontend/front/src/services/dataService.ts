@@ -12,3 +12,14 @@ export const editDriver = async (newDriver: Partial<User>): Promise<boolean> => 
     };
     return false
 }
+
+
+export const deleteDriver = async (driverId: string) => {
+    try {
+        const response = await axios.delete(`http://localhost:4444/api/deleteRoute/${driverId}`, { withCredentials: true});        
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null
+    }
+}

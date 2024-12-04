@@ -22,6 +22,23 @@ export const getAllBuses = async (req: Request, res: Response) => {
   }
 };
 
+
+export const getLimitBuses = async (req: Request, res: Response) => {
+  try {
+    const page = Number(req.query.page);
+    const limit = Number(req.query.limit);
+    const Buses = await BusService.getLimitBusesService(page, limit);
+    if (!Buses) {
+      res.status(404).json({ msg: 'User not found' });
+      return;
+    }
+    res.json(Buses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
 export const getBusById = async (req: Request, res: Response) => {
   try {
     const bus = await BusService.getBusByIdService(req.params.id);

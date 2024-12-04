@@ -19,6 +19,23 @@ export const getAllBusesService = async (): Promise<IBus[] | null> => {
   }
 };
 
+export const getLimitBusesService = async (page = 1, limit = 5): Promise<{}> => {
+  try {
+    const skip = (page - 1) * limit;
+    const buses = await Buses.find().skip(skip).limit(limit);
+    const totalBuses = await Buses.countDocuments();
+
+    return {
+      buses,
+      totalPages: Math.ceil( totalBuses / limit),
+      currentPage: page,
+      totalBuses 
+    }
+  } catch (error) {
+    throw new Error("Error fetching Buses");
+  }
+};
+
 export const updateBusService = async (id: string, bus: IBus) => {
   try {
     const updatedBus = await Buses.findById(id);
