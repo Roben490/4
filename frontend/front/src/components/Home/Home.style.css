@@ -3,3 +3,17 @@
     left: 45%;
 }
 
+
+.red-area-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: brown; 
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.red-area {
+    background-color: brown;
+}

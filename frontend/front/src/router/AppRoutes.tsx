@@ -17,7 +17,6 @@ export default function AppRoutes() {
         <Route path='/addDriver' element={<AddDriver/>}/>
         <Route path='/addBus' element={<AddBus/>}/>
         <Route path='/addLines' element={<AddLines/>}/>
-
     </Routes>
   )
 }
