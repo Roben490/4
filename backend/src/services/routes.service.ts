@@ -39,18 +39,14 @@ export const updateRouteService = async (id: string, route: IRoutes) => {
 };
 
 export const createRouteService = async (newRoute: IRoutes): Promise<IRoutes> => {
-  try {
-    console.log(newRoute);
-    
+  try {    
       const nRoutes = new Routes ({
         _id: new mongoose.Types.ObjectId(),
         lineNumber: newRoute.lineNumber,
         name: newRoute.name,
         stations: newRoute.stations,
         schedule: newRoute.schedule,
-        });
-      console.log(nRoutes);
-      
+        });      
 
     await nRoutes.save(); 
     return nRoutes;

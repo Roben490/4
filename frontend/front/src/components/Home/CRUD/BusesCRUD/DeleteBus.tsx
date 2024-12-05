@@ -1,7 +1,7 @@
 import React from "react";
 import PopUp from "../../../PopUps/PopUp";
 import { MdCancel, MdDelete } from "react-icons/md";
-import { deleteDriver } from "../../../../services/dataService";
+import { deleteBus, deleteDriver } from "../../../../services/dataService";
 
 interface StatusProp {
     isDelete: boolean,
@@ -9,10 +9,10 @@ interface StatusProp {
     setIsDelete: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function DeleteDriver({isDelete, id, setIsDelete}: StatusProp) {
+export default function DeleteBus({isDelete, id, setIsDelete}: StatusProp) {
   const handleDelete = async () => {
     
-    await deleteDriver(id)
+    await deleteBus(id)
     setIsDelete(false);
   };
 

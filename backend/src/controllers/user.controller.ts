@@ -39,15 +39,15 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
-  const updatedUserFromBody = req.body;
-  try {
+  const updatedUserFromBody: IUser = req.body;  
+  try {    
   if (updatedUserFromBody) {
-    const updatedUser = await UserService.updateUserService(updatedUserFromBody);
+    const updatedUser = await UserService.updateUserService(updatedUserFromBody);    
     if (!updatedUser) {
       res.status(404).json({ msg: 'User not found' });
       return;
   }
-    res.json({ msg: 'User score updated', updatedUser });
+    res.json({ msg: 'User updated', updatedUser });
 }
   } catch (error) {
     console.error(error);

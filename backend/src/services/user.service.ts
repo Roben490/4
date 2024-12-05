@@ -21,28 +21,25 @@ export const getAllUsersService = async (): Promise<IUser[] | null> => {
 };
 
 export const updateUserService = async (user: Partial<IUser>) => {
-  if (!user._id) {
       try {
         const updatedUser = await Users.findByIdAndUpdate(
-          user._id,
+          user._id!,
           {
             name: user.name,
             email: user.email,
             role: user.role,
           },
           { new: true }
-        );
+        );        
         if (!updatedUser) {
           throw new Error("User not found");
         }
-        console.log(updatedUser);
         return updatedUser;
       } catch (error) {
         console.error(error);
         throw error;
       }
     }
-  }
 
 
 export const createNewUserService = async (newUser: IUser): Promise<IUser> => {

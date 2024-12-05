@@ -56,9 +56,7 @@ export const updateRoute = async (req: Request, res: Response): Promise<void> =>
 };
 
 export const createNewRoute = async (req: Request, res: Response): Promise<void> => {
-  const routeFromBody: IRoutes = req.body;  
-  console.log(routeFromBody);
-      
+  const routeFromBody: IRoutes = req.body;        
   try {
     if (routeFromBody) {
       const newRoute = await RouteService.createRouteService(routeFromBody);

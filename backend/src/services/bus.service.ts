@@ -59,8 +59,6 @@ export const createNewBusService = async (
   newBus: Partial<IBus>
 ): Promise<IBus> => {
   try {
-    console.log(newBus);
-
     const nBus = new Buses({
       _id: new mongoose.Types.ObjectId(),
       licensePlate: newBus.licensePlate,
@@ -70,7 +68,6 @@ export const createNewBusService = async (
       driverId: newBus.driverId,
       routeId: newBus.routeId,
     });
-    console.log(nBus.busModel);
     await nBus.save();
     return nBus;
   } catch (error) {

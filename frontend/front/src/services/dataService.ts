@@ -3,10 +3,7 @@ import { User } from "../interface/User";
 
 
 export const editDriver = async (newDriver: Partial<User>): Promise<boolean> => {
-    console.log(newDriver);
-    const response = await axios.put(`http://localhost:4444/api/updateUser`, { newDriver }, { withCredentials: true})
-    console.log(response);
-    
+    const response = await axios.put(`http://localhost:4444/api/updateUser`, newDriver, { withCredentials: true})
     if (response.data) {
         return true;
     };
@@ -16,7 +13,17 @@ export const editDriver = async (newDriver: Partial<User>): Promise<boolean> => 
 
 export const deleteDriver = async (driverId: string) => {
     try {
-        const response = await axios.delete(`http://localhost:4444/api/deleteRoute/${driverId}`, { withCredentials: true});        
+        const response = await axios.delete(`http://localhost:4444/api/deleteUser/${driverId}`, { withCredentials: true});
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null
+    }
+}
+
+export const deleteBus = async (busId: string) => {
+    try {
+        const response = await axios.delete(`http://localhost:4444/api/deleteUser/${busId}`, { withCredentials: true});
         return response.data;
     } catch (error) {
         console.error(error);

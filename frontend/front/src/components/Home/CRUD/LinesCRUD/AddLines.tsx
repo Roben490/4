@@ -28,7 +28,7 @@ const AddLines: FC = () => {
         stations,
         schedule,
       };
-      console.log(newLines);
+      (newLines);
       const response = await addLines(newLines);
       if (response) {
         toast.success("Update Driver Successfully", {

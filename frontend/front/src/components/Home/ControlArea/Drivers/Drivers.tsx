@@ -13,6 +13,7 @@ export default function Drivers() {
   const [drivers, setDrivers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isDelete, setIsDelete] = useState(false)
+  const [driverToDelete, setDriverToDelete] = useState("")
   const itemPerShow = 5;
 
   const currentData = drivers.slice(
@@ -32,11 +33,16 @@ export default function Drivers() {
     getAllDrivers();
   }, []);
 
+  const handleDelete = async (driverId: string) => {
+    setDriverToDelete(driverId);
+    setIsDelete(true);
+    await getAllDrivers()
+  }
 
 
   return (
     <div>
-      {isDelete && <DeleteDriver isDelete={isDelete} setIsDelete={setIsDelete}/>}
+      {isDelete && <DeleteDriver isDelete={isDelete} id={driverToDelete} setIsDelete={setIsDelete}/>}
       <button className="add-d" onClick={() => navigate(`/addDriver`)}><LuUserPlus size='25px'/></button>
       <button onClick={() => {drivers.length < (currentPage * itemPerShow) ? setCurrentPage((prev) => prev - 1) : <></>}}><FaAngleDoubleUp size='20px' /></button>
       {currentData.map((driver) => (
@@ -51,7 +57,7 @@ export default function Drivers() {
             <button onClick={() => navigate(`/editDriver/${driver._id}`)}>
               <MdEdit size="20px" />
             </button>
-            <button onClick={() => setIsDelete(true)} >
+            <button onClick={() => handleDelete(driver._id!)} >
               <MdDelete color="red" size="20px" />
             </button>
           </div>
