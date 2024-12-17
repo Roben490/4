@@ -26,6 +26,8 @@ router.get('/getAllRoutes',verifyUser as NextFunction, RoutesController.getAllRo
 router.put('/updateRoute/:id',verifyUser as NextFunction, RoutesController.updateRoute);
 router.delete('/deleteRoute/:id',verifyUser as NextFunction, RoutesController.deleteRoute);
 
+
+
 router.post('/register', UserController.createNewUser);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);

@@ -6,6 +6,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
 import http from "http";
+import { Rooms } from "./models/ChatRoom.model";
+import mongoose, { Schema } from "mongoose";
+import { setupSockets } from "./socket/mainSocket";
 
 dotenv.config();
 
@@ -32,23 +35,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/api", router);
 
-io.on("connect", (socket) => {
-  socket.on("sendMessage", (message) => {
-    io.emit("receiveMessage", message);
-  });
-
-  socket.on("joinRoom", (roomName) => {
-    socket.join(roomName);
-  });
-
-  socket.on("sendMessageToRoom", (roomName, message) => {
-    io.to(roomName).emit("receiveMessage", message)
-  })
-
-  socket.on("disconnect", () => {
-    console.log(`socket disconnect ${socket.id}`);
-  });
-});
+setupSockets(server)
 
 const startServer = async () => {
   await connectToMongo();
