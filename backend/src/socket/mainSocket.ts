@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import { Server as HttpServer } from 'http';
+import { Server as HttpServer } from 'http'
 import roomSocket from './socket.Controller/RoomSocket/roomSocket';
 
 const setupSockets = (server: HttpServer) => {
